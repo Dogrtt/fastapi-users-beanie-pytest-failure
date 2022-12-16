@@ -1,0 +1,6 @@
+fastapi-users[beanie]==10.2.*
+fastapi==0.88.*
+httpx==0.23.*
+pytest==7.2.*
+python-dotenv==0.21.*
+trio==0.22.*

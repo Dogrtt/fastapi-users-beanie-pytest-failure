@@ -1,0 +1,34 @@
+networks:
+  test_net:
+    name: test_net
+    driver: bridge
+
+volumes:
+  mongo_data:
+  mongo_config:
+
+services:
+  # ###############
+  # #### MONGO ####
+  mongo:
+    image: mongo:${MONGO_VERSION}
+    container_name: mongo
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "50"
+    volumes:
+      - type: volume
+        source: mongo_data
+        target: /data/db
+      - type: volume
+        source: mongo_config
+        target: /data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "27017:27017"
+    networks:
+      - test_net
